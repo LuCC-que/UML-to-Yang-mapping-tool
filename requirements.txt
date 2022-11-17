@@ -1,0 +1,4 @@
+pytest
+xmltodict
+autopep8
+flake8 

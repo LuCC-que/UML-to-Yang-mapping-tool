@@ -20,4 +20,4 @@ jobs:
         working-directory: ./src
         run: |
           pip install pytest
-          pytest src/backend/tests
+          pytest tests
