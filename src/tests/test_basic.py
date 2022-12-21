@@ -26,3 +26,30 @@ def test_container1():
     result = writeYang(ob.Classes, ob.Associations)
 
     assert format_and_compare(expect, result)
+
+
+def test_p38():
+
+    expect = \
+        "container ClassC {\
+	        grouping ClassD {\
+		        leaf name {\
+				    type String;\
+		        }\
+		        leaf attribute3 {\
+				    type Integer;\
+		        }\
+	        }\
+	        leaf attribute1 {\
+		        type String;\
+	        }\
+	        leaf attribute2 {\
+		        type String;\
+	        }\
+        }".replace(" ", "")
+
+    file_path = path.joinpath("local_XMLs").joinpath("page38.uml")
+    ob = makeYangInJson(file_path)
+    result = writeYang(ob.Classes, ob.Associations)
+
+    assert format_and_compare(expect, result)
