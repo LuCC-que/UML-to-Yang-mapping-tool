@@ -1,4 +1,6 @@
 pytest
 xmltodict
 autopep8
-flake8 
+flake8
+flask
+flask-smorest

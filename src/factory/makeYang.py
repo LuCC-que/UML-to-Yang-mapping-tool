@@ -1,23 +1,38 @@
 import xmltodict
 import json
 import re
+import pathlib
 from operator import itemgetter
 
 
 class makeYangInJson:
 
-    def __init__(self, filePath, cfg={}) -> None:
+    def __init__(self, filePath=None, xml=None, cfg={}) -> None:
         self.filePath = filePath
+        self.xml = xml
+
+        if (self.filePath == None and self.xml == None):
+            raise Exception("No availble xml file")
+        elif ((self.filePath != None and self.xml != None)):
+            raise Exception("Two different files")
+
         self.xmlModel = None
         self.profiles = None
         self.profileInfo = {}
-        self.YangInJson = {}
+        self.Classes = {}
+        self.Associations = {}
         self.toXmlModel()
-        self.toYangJson()
+        self.toGrappingInfo()
 
     def toXmlModel(self) -> None:
-        with open(self.filePath) as xml_file:
-            data_dict = xmltodict.parse(xml_file.read())
+        data_dict = {}
+        if (self.filePath != None):
+            with open(self.filePath) as xml_file:
+                data_dict = xmltodict.parse(xml_file.read())
+        else:
+            data_dict = xmltodict.parse(self.xml)
+
+        # print(json.dumps(data_dict, indent=4))
 
         # take the xml element
         self.xmlModel = data_dict["xmi:XMI"]["uml:Model"]
@@ -26,12 +41,13 @@ class makeYangInJson:
         # take the profile info
         self.profiles = data_dict["xmi:XMI"]
 
-    def toYangJson(self) -> None:
+    def toGrappingInfo(self) -> None:
 
         # collect all the profiles info first
         for key in self.profiles:
             if re.fullmatch(r'\b\w*_Profile:\w*\b', key):
                 self.profileHandler(key, self.profiles[key])
+        # print(json.dumps(self.profileInfo, indent=4))
 
         for key in self.xmlModel:
             if key == "packagedElement":
@@ -53,8 +69,8 @@ class makeYangInJson:
             raise Exception("Unknown type: pkgElement")
 
     def umlClassHandler(self, umlClass) -> None:
-        # self.YangInJson[umlClass["@xmi:id"]] = {}
-        print(json.dumps(umlClass, indent=4))
+        # self.Class[umlClass["@xmi:id"]] = {}
+        # print(json.dumps(umlClass, indent=4))
         _cls = {
             "name": umlClass["@name"],
             "profiles": [],
@@ -64,13 +80,26 @@ class makeYangInJson:
         if umlClass["@xmi:id"] in self.profileInfo:
             _cls["profiles"] = self.profileInfo[umlClass["@xmi:id"]]
 
-        self.YangInJson[umlClass["@xmi:id"]] = _cls
-        print(json.dumps(self.YangInJson, indent=4))
+        self.Classes[umlClass["@xmi:id"]] = _cls
+        # print(json.dumps(self.Class, indent=4))
         return
 
-    def attributesHandler(self, attr):
+    def attributesHandler(self, attrs, attrsDist={}) -> dict:
+        if type(attrs) is dict:
+            attr_id = attrs["@xmi:id"]
+            profile = self.profileInfo[attr_id]
 
-        #! no implement yet
+            # assign the profile
+            attrsDist[attrs["@name"]] = profile
+
+            # assign the name
+            [_, tp] = attrs["type"]["@href"].split("#")
+            attrsDist[attrs["@name"]]["type"] = tp
+            return attrsDist
+
+        for attr in attrs:
+            self.attributesHandler(attrs, attrsDist)
+
         return attr
 
     def umlAssoHandler(self, umlAsso) -> None:
@@ -80,32 +109,20 @@ class makeYangInJson:
         on we can just simply connect them together
         '''
         #!unimplement
-        print(json.dumps(umlAsso, indent=4))
+        # print(json.dumps(umlAsso, indent=4))
         return
 
     def profileHandler(self, key, profiles) -> None:
-        _, class_id, *item = profiles.values()
+        _, class_id, *items = profiles.values()
+        _, _, *keys = profiles.keys()
 
-        if item == []:
+        if keys == []:
             return
-
+        # print("these are keys ", keys)
         [_, pType] = key.split(":")
-        if class_id in profiles:
-            self.profileInfo[class_id][pType] = item
-        else:
-            self.profileInfo[class_id] = {pType: item}
-        print(json.dumps(self.profileInfo, indent=4))
-
-
-if __name__ == "__main__":
-    import pathlib
-    path = pathlib \
-        .Path().resolve()\
-        .joinpath("..").joinpath("resources")\
-        .joinpath("container1.uml")\
-
-    mYj = makeYangInJson(path)
-    # Json = mYj.xmlModel
-    # pf = mYj.profileInfo
-    # print(json.dumps(Json, indent=4))
-    # print(json.dumps(pf, indent=4))
+        for key, item in zip(keys, items):
+            if class_id in self.profileInfo:
+                self.profileInfo[class_id][pType][key] = item
+            else:
+                self.profileInfo[class_id] = {pType: {key: item}}
+        # print(json.dumps(self.profileInfo, indent=4))

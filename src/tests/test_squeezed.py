@@ -1,33 +1,28 @@
 from factory.makeYang import makeYangInJson
-import pytest
+from factory.WriteYang import writeYang
 import pathlib
 path = pathlib \
     .Path().resolve()
 
 
+def format_and_compare(str1, str2) -> bool:
+    str1 = str1.replace("\t", "").replace("\n", "").replace(" ", "")
+    str2 = str2.replace("\t", "").replace("\n", "").replace(" ", "")
+
+    return str1 == str2
+
+
 def test_container1():
-    file_path = path.joinpath("resources")\
-        .joinpath("container1.uml")
 
-    Json = makeYangInJson(file_path).YangInJson
+    expect = \
+        "container Class2 {\
+            leaf attribut1 {\
+            type String;\
+            }\
+        }".replace(" ", "")
 
-    if Json != {
-        "_vhyFEFfpEe2mSIV9lJGM8w": {
-            "name": "Class2",
-            "profiles": {
-                "RootElement": [
-                    "1"
-                ]
-            },
-            "attributes": {
-                "@xmi:type": "uml:Property",
-                "@xmi:id": "_E-MjUFfqEe2mSIV9lJGM8w",
-                "@name": "attribut1",
-                "type": {
-                    "@xmi:type": "uml:PrimitiveType",
-                    "@href": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"
-                }
-            }
-        }
-    }:
-        raise Exception("Wrong result produced")
+    file_path = path.joinpath("local_XMLs").joinpath("container1.uml")
+    ob = makeYangInJson(file_path)
+    result = writeYang(ob.Classes, ob.Associations)
+
+    assert format_and_compare(expect, result)
