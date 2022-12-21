@@ -2,7 +2,7 @@
 
 ## About:
 
-### This is an undergraduate thesis project; we are building a translation tool that maps the UML to Yang language for Telus; many works in this field are sill unexplored, which means part of this project is also for exploration propose, the main goal is to find out the limitation of translating UML to Yang, and sumarize any engineering problem into paper.
+### The objective of this undergraduate thesis project is to develop a translation tool for converting UML to the Yang language for Telus. While a significant portion of this field remains unexplored, this project also aims to investigate the limitations of translating UML to Yang. The primary objective of this project is to identify and document any engineering challenges encountered during the translation process, summarizing the findings in a professional report.
 
 <br />
 

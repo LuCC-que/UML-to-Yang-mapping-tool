@@ -43,4 +43,4 @@ if __name__ == "__main__":
         with open(output_path, 'w', encoding="utf8") as file:
             result = writeYang(ob.Classes, ob.Associations)
             file.write(result)
-    print(result)
+        print(result)
