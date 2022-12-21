@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9"
+  xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29"
+  xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+  xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
+  xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg
+                      http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_uyCqMFfpEe2mSIV9lJGM8w" name="container1">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_u0Ss8FfpEe2mSIV9lJGM8w">
+      <importedPackage xmi:type="uml:Model"
+        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0" />
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_vhyFEFfpEe2mSIV9lJGM8w" name="Class2">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_E-MjUFfqEe2mSIV9lJGM8w" name="attribut1">
+        <type xmi:type="uml:PrimitiveType"
+          href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String" />
+      </ownedAttribute>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_2zUZAFfpEe2mSIV9lJGM8w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2zVnIFfpEe2mSIV9lJGM8w"
+        source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage"
+          href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg" />
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile"
+        href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A" />
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_216aAFfpEe2mSIV9lJGM8w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_217BEFfpEe2mSIV9lJGM8w"
+        source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage"
+          href="../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ" />
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile"
+        href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A" />
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_22H1YFfpEe2mSIV9lJGM8w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_22H1YVfpEe2mSIV9lJGM8w"
+        source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage"
+          href="../OnfModel/UmlProfiles/Experimental.profile.uml#_unEcAJDrEemIv9iw4JXc9w" />
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile"
+        href="../OnfModel/UmlProfiles/Experimental.profile.uml#_EDtRcAH_Eea6DZDQ0h6cdQ" />
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_22YUEFfpEe2mSIV9lJGM8w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_22YUEVfpEe2mSIV9lJGM8w"
+        source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage"
+          href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_AL3HsHweEee8oZaf2rRQlg" />
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile"
+        href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA" />
+    </profileApplication>
+  </uml:Model>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_21rJcFfpEe2mSIV9lJGM8w"
+    base_Class="_vhyFEFfpEe2mSIV9lJGM8w" />
+  <OpenModel_Profile:OpenModelStatement xmi:id="_218PMFfpEe2mSIV9lJGM8w"
+    base_Model="_uyCqMFfpEe2mSIV9lJGM8w" />
+  <OpenModel_Profile:OpenModelClass xmi:id="_218PMVfpEe2mSIV9lJGM8w"
+    base_Class="_vhyFEFfpEe2mSIV9lJGM8w" />
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_E-PmoFfqEe2mSIV9lJGM8w"
+    base_StructuralFeature="_E-MjUFfqEe2mSIV9lJGM8w" valueRange="&quot;a to b&quot;" unit="1" />
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_E-QNsFfqEe2mSIV9lJGM8w"
+    base_Property="_E-MjUFfqEe2mSIV9lJGM8w" />
+  <OpenInterfaceModel_Profile:RootElement xmi:id="_RDGfoFfqEe2mSIV9lJGM8w"
+    base_Class="_vhyFEFfpEe2mSIV9lJGM8w" multiplicity="1" />
+</xmi:XMI>
