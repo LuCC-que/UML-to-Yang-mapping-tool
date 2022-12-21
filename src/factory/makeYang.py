@@ -87,20 +87,22 @@ class makeYangInJson:
     def attributesHandler(self, attrs, attrsDist={}) -> dict:
         if type(attrs) is dict:
             attr_id = attrs["@xmi:id"]
-            profile = self.profileInfo[attr_id]
 
-            # assign the profile
-            attrsDist[attrs["@name"]] = profile
+            if attr_id in self.profileInfo:
+                profile = self.profileInfo[attr_id]
 
-            # assign the name
-            [_, tp] = attrs["type"]["@href"].split("#")
-            attrsDist[attrs["@name"]]["type"] = tp
+                # assign the profile
+                attrsDist[attrs["@name"]] = profile
+
+                # assign the name
+                [_, tp] = attrs["type"]["@href"].split("#")
+                attrsDist[attrs["@name"]]["type"] = tp
             return attrsDist
 
         for attr in attrs:
-            self.attributesHandler(attrs, attrsDist)
+            attrsDist = self.attributesHandler(attr, attrsDist)
 
-        return attr
+        return attrsDist
 
     def umlAssoHandler(self, umlAsso) -> None:
         '''
@@ -113,16 +115,28 @@ class makeYangInJson:
         return
 
     def profileHandler(self, key, profiles) -> None:
-        _, class_id, *items = profiles.values()
-        _, _, *keys = profiles.keys()
+        if type(profiles) is dict:
+            _, class_id, *items = profiles.values()
+            _, _, *keys = profiles.keys()
 
-        if keys == []:
+            if keys == []:
+                return
+
+            print(profiles)
+            [_, pType] = key.split(":")
+            for key, item in zip(keys, items):
+                if class_id in self.profileInfo:
+                    print(key)
+                    if pType not in self.profileInfo[class_id]:
+                        self.profileInfo[class_id][pType] = {key: item}
+                    else:
+                        self.profileInfo[class_id][pType] = {
+                            **self.profileInfo[class_id][pType], key: item}
+                else:
+                    self.profileInfo[class_id] = {pType: {key: item}}
+
             return
-        # print("these are keys ", keys)
-        [_, pType] = key.split(":")
-        for key, item in zip(keys, items):
-            if class_id in self.profileInfo:
-                self.profileInfo[class_id][pType][key] = item
-            else:
-                self.profileInfo[class_id] = {pType: {key: item}}
-        # print(json.dumps(self.profileInfo, indent=4))
+
+        elif type(profiles) is list:
+            for profile in profiles:
+                self.profileHandler(key, profile)
