@@ -74,7 +74,7 @@ class makeYangInJson:
         _cls = {
             "name": umlClass["@name"],
             "profiles": [],
-            "attributes": self.attributesHandler(umlClass["ownedAttribute"])
+            "attributes": self.attributesHandler(umlClass["ownedAttribute"], umlClass["@xmi:id"], {})
         }
 
         if umlClass["@xmi:id"] in self.profileInfo:
@@ -84,7 +84,7 @@ class makeYangInJson:
         # print(json.dumps(self.Class, indent=4))
         return
 
-    def attributesHandler(self, attrs, attrsDist={}) -> dict:
+    def attributesHandler(self, attrs, cur_id, attrsDist={}) -> dict:
         if type(attrs) is dict:
             attr_id = attrs["@xmi:id"]
 
@@ -97,10 +97,15 @@ class makeYangInJson:
                 # assign the name
                 [_, tp] = attrs["type"]["@href"].split("#")
                 attrsDist[attrs["@name"]]["type"] = tp
+
+            elif "@association" in attrs:
+                self.Associations[cur_id] = {
+                    "type": attrs["@aggregation"], "to": attrs["@type"]}
+
             return attrsDist
 
         for attr in attrs:
-            attrsDist = self.attributesHandler(attr, attrsDist)
+            attrsDist = self.attributesHandler(attr, cur_id, attrsDist)
 
         return attrsDist
 
