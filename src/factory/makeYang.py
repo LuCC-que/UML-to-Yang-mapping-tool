@@ -59,8 +59,8 @@ class makeYangInJson:
             class_type = pkgElement["@xmi:type"]
             if class_type == "uml:Class":
                 self.umlClassHandler(pkgElement)
-            if class_type == "uml:Association":
-                self.umlAssoHandler(pkgElement)
+            # if class_type == "uml:Association":
+            #     self.umlAssoHandler(pkgElement)
 
         elif type(pkgElement) is list:
             for element in pkgElement:
@@ -98,9 +98,23 @@ class makeYangInJson:
                 [_, tp] = attrs["type"]["@href"].split("#")
                 attrsDist[attrs["@name"]]["type"] = tp
 
-            elif "@association" in attrs:
-                self.Associations[cur_id] = {
-                    "type": attrs["@aggregation"], "to": attrs["@type"]}
+            if "@association" in attrs:
+                # self.Associations[cur_id] = {
+                #     "type": attrs["@aggregation"], "to": attrs["@type"]}
+
+                if cur_id in self.Associations:
+                    self.Associations[cur_id] = {
+                        **self.Associations[cur_id],
+                        attrs["@type"]: attrs["@aggregation"]
+                    }
+
+                else:
+                    self.Associations[cur_id] = {
+                        attrs["@type"]: attrs["@aggregation"]
+                    }
+
+            elif "@association" not in attrs:
+                self.Associations[cur_id] = {}
 
             return attrsDist
 
@@ -109,15 +123,15 @@ class makeYangInJson:
 
         return attrsDist
 
-    def umlAssoHandler(self, umlAsso) -> None:
-        '''
-        looking for association after we obtain the 
-        comprehensive class information, which later
-        on we can just simply connect them together
-        '''
-        #!unimplement
-        # print(json.dumps(umlAsso, indent=4))
-        return
+    # def umlAssoHandler(self, umlAsso) -> None:
+    #     '''
+    #     looking for association after we obtain the
+    #     comprehensive class information, which later
+    #     on we can just simply connect them together
+    #     '''
+    #     #!unimplement
+    #     # print(json.dumps(umlAsso, indent=4))
+    #     return
 
     def profileHandler(self, key, profiles) -> None:
         if type(profiles) is dict:

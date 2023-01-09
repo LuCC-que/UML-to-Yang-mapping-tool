@@ -55,7 +55,7 @@
         },
         {
           "@xmi:type": "uml:Class",
-          "@xmi:id": "_FWmSQOp7EeyUUOWHNReWTA",
+          "@xmi:id": " ",
           "@name": "ClassD",
           "ownedAttribute": [
             {
@@ -327,7 +327,7 @@
       {
         "@xmi:id": "_OQMJIOp7EeyUUOWHNReWTA",
         "@base_StructuralFeature": "_OQKT8Op7EeyUUOWHNReWTA",
-        "@unit": "1"
+        "@unit": "2"
       },
       {
         "@xmi:id": "_QANVQOp7EeyUUOWHNReWTA",
