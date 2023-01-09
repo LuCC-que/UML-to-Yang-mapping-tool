@@ -4,7 +4,7 @@ from flask_smorest import Api
 
 import pathlib
 
-from factory.makeYang import makeYangInJson
+from factory.BuildYang import makeYangInJson
 from factory.WriteYang import writeYang
 from resources.xmls_req import blp as xmlBluprint
 

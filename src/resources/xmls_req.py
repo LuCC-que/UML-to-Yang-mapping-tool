@@ -1,7 +1,7 @@
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from factory.makeYang import makeYangInJson
+from factory.BuildYang import makeYangInJson
 from factory.WriteYang import writeYang
 
 blp = Blueprint("xmlRequest",

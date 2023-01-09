@@ -1,4 +1,4 @@
-from factory.makeYang import makeYangInJson
+from factory.BuildYang import makeYangInJson
 from factory.WriteYang import writeYang
 import pathlib
 path = pathlib \

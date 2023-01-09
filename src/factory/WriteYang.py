@@ -1,5 +1,5 @@
 import json
-from .makeYang import makeYangInJson
+from .BuildYang import makeYangInJson
 
 
 def writeYang(classes, associations):
