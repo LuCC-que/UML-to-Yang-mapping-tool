@@ -20,6 +20,7 @@ class classInfo:
             else:
 
                 clsAttr = {"name": attribute["@name"],
+                           "id": attribute["@xmi:id"],
                            "type": "undefined",
                            "mul": "0..1",
                            "defaultValue": None}
@@ -81,6 +82,7 @@ class classInfo:
                         if "@name" not in pObj:
                             self.content["RootElement"] = pObj["@multiplicity"]
 
+                        # root element class
                         else:
                             root = classInfo(pObj["@name"], self.classId + "_")
 
@@ -91,5 +93,22 @@ class classInfo:
 
                             if "@description" in pObj:
                                 root.content["presence"] = pObj["@description"]
+
+            if key == "OpenModel_Profile:OpenModelAttribute":
+                for attrObj in value:
+
+                    if len(attrObj) < 3:
+                        continue
+
+                    else:
+
+                        for attr in self.content["attributes"]:
+                            if attr["id"] == attrObj["@base_StructuralFeature"]:
+                                keys_to_append = list(attrObj.keys())[2:]
+
+                                # append all value beside first two into
+                                # attr
+                                for key in keys_to_append:
+                                    attr[key] = attrObj[key]
 
         return root

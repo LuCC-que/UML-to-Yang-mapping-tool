@@ -70,12 +70,7 @@ class WriteYang:
                     self.output += "\t" * (level + 1)
                     self.output += "}"
 
-                    if attribute["defaultValue"] != None:
-                        self.output += "\n"
-                        self.output += "\t" * (level + 1)
-                        self.output += "default "
-                        self.output += attribute["defaultValue"]
-                        self.output += ";"
+                    self.additionalValues(attribute, level)
 
                     self.output += "\n"
                     self.output += "\t" * level
@@ -113,12 +108,8 @@ class WriteYang:
                             self.output += "\t" * (level + 1)
                             self.output += "max-elements " + maxVal + ";"
 
-                    if attribute["defaultValue"] != None:
-                        self.output += "\n"
-                        self.output += "\t" * (level + 1)
-                        self.output += "default "
-                        self.output += attribute["defaultValue"]
-                        self.output += ";"
+                    # checking additional value here
+                    self.additionalValues(attribute, level)
 
                     self.output += "\n" + "\t" * level + "}"
 
@@ -167,3 +158,17 @@ class WriteYang:
             #     self.writeYang(cls, level, False)
 
         print("debug")
+
+    def additionalValues(self, attribute, level):
+        if attribute["defaultValue"] != None:
+            self.output += "\n"
+            self.output += "\t" * (level + 1)
+            self.output += "default "
+            self.output += attribute["defaultValue"]
+            self.output += ";"
+        if "@isInvariant" in attribute:
+            self.output += "\n"
+            self.output += "\t" * (level + 1)
+            self.output += "config "
+            self.output += "false"
+            self.output += ";"

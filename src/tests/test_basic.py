@@ -167,3 +167,48 @@ def test_p22():
     result = WriteYang(ob.Graph, ob.RenderStart)
 
     assert format_and_compare(expect, result.output)
+
+
+def test_p22_i():
+    '''
+    this is enum case and default value cases
+
+    see p22 in the TR-531
+    '''
+
+    expect =                                            \
+        'grouping Class1 {                              \
+                leaf class1ID{                          \
+                        type String;                    \
+                        mandatory true;                 \
+                }                                       \
+                leaf attribute1{                        \
+                        type String;                    \
+                        mandatory true;                 \
+                }                                       \
+                leaf-list attribute2{                   \
+                        type String;                    \
+                        min-elements 2;                 \
+                        max-elements 6;                 \
+                        config false;                   \
+                }                                       \
+                leaf attribute3{                        \
+                        type Boolean;                   \
+                        mandatory true;                 \
+                        default true;                   \
+                }                                       \
+                leaf attribute4{                        \
+                        type enumeration {              \
+                                enum LITERAL_1;         \
+                                enum LITERAL_2;         \
+                                enum LITERAL_3;         \
+                        }                               \
+                        default LITERAL_2;              \
+                }                                       \
+        }'
+
+    file_path = dir_path.joinpath("p22-i.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)

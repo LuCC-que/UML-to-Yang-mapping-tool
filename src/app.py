@@ -33,7 +33,7 @@ if __name__ == "__main__":
     if not os.path.exists("Yangs"):
         os.makedirs("Yangs")
 
-    files = glob.glob(os.path.join("local_XMLS", 'p22.uml'))
+    files = glob.glob(os.path.join("local_XMLS", 'p22-i.uml'))
 
     for file in files:
         path = pathlib.Path().resolve().joinpath(file)
