@@ -1,8 +1,8 @@
 from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from factory.BuildYang import makeYangInJson
-from factory.WriteYang import writeYang
+# from factory.BuildYang import makeYangInJson
+# from factory.WriteYang import writeYang
 
 blp = Blueprint("xmlRequest",
                 __name__,
@@ -13,8 +13,10 @@ blp = Blueprint("xmlRequest",
 @blp.route("/xml")
 class xmlRequest(MethodView):
     def get(self):
-        xml_data = request.data
-        ob = makeYangInJson(None, xml_data)
-        result = writeYang(ob.Classes, ob.Associations)
-        print(result)
-        return result
+        # xml_data = request.data
+        # ob = makeYangInJson(None, xml_data)
+        # result = writeYang(ob.Classes, ob.Associations)
+        # print(result)
+        # return result
+
+        return "Hello world"

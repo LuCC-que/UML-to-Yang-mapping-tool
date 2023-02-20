@@ -4,8 +4,8 @@ from flask_smorest import Api
 
 import pathlib
 
-from factory.BuildYang import makeYangInJson
-from factory.WriteYang import writeYang
+from factory.BuildYang import BuildYang
+from factory.WriteYang import WriteYang
 from resources.xmls_req import blp as xmlBluprint
 
 
@@ -33,14 +33,17 @@ if __name__ == "__main__":
     if not os.path.exists("Yangs"):
         os.makedirs("Yangs")
 
-    files = glob.glob(os.path.join("local_XMLS", '*.uml'))
+    files = glob.glob(os.path.join("local_XMLS", 'p22.uml'))
 
     for file in files:
         path = pathlib.Path().resolve().joinpath(file)
-        ob = makeYangInJson(path)
-        output_path = os.path.join("Yangs", file[11:-4]+".txt")
+        ob = BuildYang(path)
+        writeYang = WriteYang(ob.Graph, ob.RenderStart)
 
-        with open(output_path, 'w', encoding="utf8") as file:
-            result = writeYang(ob.Classes, ob.Associations)
-            file.write(result)
-        print(result)
+        print(writeYang.output)
+        # output_path = os.path.join("Yangs", file[11:-4]+".txt")
+
+        # with open(output_path, 'w', encoding="utf8") as file:
+        #     result = writeYang(ob.Classes, ob.Associations)
+        #     file.write(result)
+        # print(result)

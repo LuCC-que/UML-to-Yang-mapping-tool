@@ -1,78 +1,169 @@
 import json
-from .BuildYang import makeYangInJson
+import re
 
 
-def writeYang(classes, associations):
-    result = ''
-    print("the class is: ", json.dumps(classes, indent=4))
-    print("the asso is: ", json.dumps(associations, indent=4))
+class WriteYang:
 
-    # if len(associations) == 0:
-    #     for _, value in classes.items():
-    #         result = writeCls(value, result)
+    def __init__(self, renderArray, roots) -> None:
 
-    # else:
-    #     for cls1, cls2 in associations.items():
-    #         result = writeCls(classes[cls1], result, 1,
-    #                           classes[cls2["to"]],
-    #                           cls2["type"])
+        self.renderMap = {}
+        self.roots = roots
+        self.pending = []
+        self.output = ""
+        self._config(renderArray)
 
-    return result
+        while (len(roots) > 0):
+            root = roots.pop()
+            self.writeYang(root)
 
+    def _config(self, renderArray):
 
-# def writeCls(cls, result, level=1, cls2=None, asso=None):
-#     # print(json.dumps(cls, indent=4))
+        for cls in renderArray:
+            self.renderMap[cls.classId] = cls
 
-#     rootElement = 0
-#     if ("RootElement" in cls["profiles"]):
-#         rootElement = int(cls["profiles"]["RootElement"]["@multiplicity"])
+        print("done")
 
-#     if (rootElement == 1):
-#         result += "container"
-#     elif (rootElement > 1):
-#         result += "list"
-#     else:
-#         result += "grouping"
+    def writeYang(self, root, level=1, top=True):
 
-#     result += ''.join([" ", cls["name"], " ", "{\n"])
+        # start writting yang
+        self.output += "\t" * (level - 1)
+        cls = self.renderMap[root]
 
-#     if (asso == "composite"):
-#         result += "\t"*level
-#         result = writeCls(cls2, result, level+1)
-#     elif (asso == "shared"):
-#         result += "\t"*level + "uses " + cls2["name"] + "\n"
+        if "RootElement" not in cls.content:
+            self.output += "grouping"
+        elif cls.content["RootElement"] == "1":
 
-#     for key, value in cls["attributes"].items():
-#         print(key)
-#         print(value)
-#         unit = 0
-#         OpenModelAttribute = {}
+            self.output += "container"
 
-#         if ("OpenModelAttribute" in value):
-#             OpenModelAttribute = value["OpenModelAttribute"]
-#             unit = int(value["OpenModelAttribute"]["@unit"])
+        elif cls.content["RootElement"] == "0":
+            self.output += "grouping"
 
-#         result += "\t"*level
-#         if (unit <= 1):
-#             result += "leaf"
-#         elif (unit > 1):
-#             result += "leaf-list"
-#         result += ''.join([" ", key, " ", "{\n"])
-#         result += ''.join(["\t\t"*level, "type",
-#                           " ", value["type"], ";\n"])
+        else:
+            self.output += "list"
 
-#         if "@valueRange" in OpenModelAttribute:
-#             valueRange = '""'
-#             if OpenModelAttribute["@valueRange"] != "":
-#                 valueRange = OpenModelAttribute["@valueRange"]
-#             result += ''.join(["\t\t"*level,
-#                               "valueRange", " ", valueRange, "\n"])
+        self.output += " " + cls.className + " {"
+        self.output += "\n"
 
-#         result += "\t"*level + "}\n"
+        # render the attributes first
+        if "attributes" in cls.content:
+            attributes = cls.content["attributes"]
+            for attribute in attributes:
 
-#     result += "\t"*(level - 1) + "}" + "\n"
+                if attribute["type"] == "enumeration":
 
-#     if (asso == "shared"):
-#         result = writeCls(cls2, result, level)
+                    self.output += "\t" * level
+                    self.output += "leaf "
+                    self.output += attribute["name"] + "{"
 
-#     return result
+                    self.output += "\n"
+                    self.output += "\t" * (level + 1)
+                    self.output += "type enumeration {"
+
+                    for value in attribute["value"]["ownedLiteral"]:
+                        self.output += "\n"
+                        self.output += "\t" * (level + 2)
+                        self.output += "enum "
+                        self.output += value
+                        self.output += ";"
+
+                    self.output += "\n"
+                    self.output += "\t" * (level + 1)
+                    self.output += "}"
+
+                    if attribute["defaultValue"] != None:
+                        self.output += "\n"
+                        self.output += "\t" * (level + 1)
+                        self.output += "default "
+                        self.output += attribute["defaultValue"]
+                        self.output += ";"
+
+                    self.output += "\n"
+                    self.output += "\t" * level
+                    self.output += "}"
+
+                else:
+
+                    self.output += "\t" * level
+
+                    if attribute["mul"] == "0..1" or attribute["mul"] == "1":
+                        self.output += "leaf "
+
+                    else:
+                        self.output += "leaf-list "
+
+                    self.output += attribute["name"] + "{"
+                    self.output += "\n"
+                    self.output += "\t" * (level + 1)
+                    self.output += "type " + attribute["type"] + ";"
+
+                    if attribute["mul"] == "1":
+                        self.output += "\n"
+                        self.output += "\t" * (level + 1)
+                        self.output += "mandatory true" + ";"
+
+                    elif re.match(r"^.+\.\..+$", attribute["mul"]):
+                        parts = attribute["mul"].split("..")
+                        minVal, maxVal = parts
+                        if minVal.isdigit() and minVal != "0":
+                            self.output += "\n"
+                            self.output += "\t" * (level + 1)
+                            self.output += "min-elements " + minVal + ";"
+                        if maxVal.isdigit() and maxVal != "1":
+                            self.output += "\n"
+                            self.output += "\t" * (level + 1)
+                            self.output += "max-elements " + maxVal + ";"
+
+                    if attribute["defaultValue"] != None:
+                        self.output += "\n"
+                        self.output += "\t" * (level + 1)
+                        self.output += "default "
+                        self.output += attribute["defaultValue"]
+                        self.output += ";"
+
+                    self.output += "\n" + "\t" * level + "}"
+
+                self.output += "\n"
+
+        if "presence" in cls.content:
+            self.output += "\t" * level
+            self.output += "presence "
+            self.output += '"' + cls.content["presence"] + '"'
+            self.output += ";"
+            self.output += "\n"
+
+        if len(cls.Associations) > 0:
+
+            assotiations = cls.Associations
+            for assotiation in assotiations:
+                targetId = assotiation["to"]
+                if assotiation["type"] == 'shared':
+                    self.output += "\t" * level
+                    self.output += "uses "
+                    self.output += self.renderMap[targetId].className
+                    self.output += ";"
+                    self.output += "\n"
+
+                    if targetId not in self.pending:
+                        self.pending.append(targetId)
+                # may be repeatly rendering
+                else:
+                    self.writeYang(targetId, level + 1, False)
+
+        self.output += "\t" * (level - 1) + "}"
+        self.output += "\n"
+
+        if cls.classId in self.roots:
+            self.roots.remove(cls.classId)
+
+        # if cls.classId in self.renderMap:
+        #     del self.renderMap[cls.classId]
+
+        if top == True:
+            while (len(self.pending) > 0):
+                cls = self.pending.pop()
+                self.writeYang(cls, level, False)
+
+            # for cls in self.pending:
+            #     self.writeYang(cls, level, False)
+
+        print("debug")
