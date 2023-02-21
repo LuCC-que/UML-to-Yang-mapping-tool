@@ -1,3 +1,7 @@
+from re import split
+from itertools import zip_longest
+
+
 class classInfo:
     def __init__(self, name, id) -> None:
         self.className = name
@@ -6,6 +10,8 @@ class classInfo:
         self.content = {}
 
     def collectInfo(self, attribute, profiles):
+
+        additional_classes = []
 
         if type(attribute) is list:
             for attribute in attribute:
@@ -30,12 +36,6 @@ class classInfo:
                         clsAttr["type"] = attribute["type"]["@href"].split(
                             "#")[-1]
 
-                # if type(attribute["type"]) is dict:
-
-                #     if attribute["type"]["@xmi:type"] == "uml:PrimitiveType":
-                #         clsAttr["type"] = attribute["type"]["@href"].split(
-                #             "#")[-1]
-
                 else:
                     clsAttr["type"] = attribute["@type"]
 
@@ -56,7 +56,40 @@ class classInfo:
                 '''
                 if "ownedComment" in attribute:
                     if "body" in attribute["ownedComment"]:
-                        clsAttr["mul"] = attribute["ownedComment"]["body"]
+
+                        # the first is multiplacity
+                        # the second is uniqueness
+                        tags = ["mul", "unique"]
+                        string = attribute["ownedComment"]["body"]
+                        values = split("[\r\n]+", string)
+
+                        # assign to the clsAttribute
+                        for tag, value in zip_longest(tags, values):
+                            if tag is None or value is None:
+                                break
+                            if tag == "unique":
+                                unq_cls = classInfo(
+                                    self.className, self.classId + "__")
+                                asso = {"to": self.classId,
+                                        "type": "shared"}
+                                unq_cls.Associations.append(asso)
+                                unq_cls.content["RootElement"] = "2"
+
+                                unq_cls_key = {"name": attribute["@name"],
+                                               "id": attribute["@xmi:id"] + "_",
+                                               "type": "key",
+                                               }
+
+                                unq_cls_uni = {"name": attribute["@name"],
+                                               "id": attribute["@xmi:id"] + "_q",
+                                               "type": "unique",
+                                               }
+                                unq_cls.content["attributes"] = [
+                                    unq_cls_key, unq_cls_uni]
+
+                                additional_classes.append(unq_cls)
+                                continue
+                            clsAttr[tag] = value
 
                 if "attributes" in self.content:
                     self.content["attributes"].append(clsAttr)
@@ -94,10 +127,12 @@ class classInfo:
                             if "@description" in pObj:
                                 root.content["presence"] = pObj["@description"]
 
+                            additional_classes.append(root)
+
             if key == "OpenModel_Profile:OpenModelAttribute":
                 for attrObj in value:
 
-                    if len(attrObj) < 3:
+                    if len(attrObj) < 3 or len(value) < 3:
                         continue
 
                     else:
@@ -111,4 +146,4 @@ class classInfo:
                                 for key in keys_to_append:
                                     attr[key] = attrObj[key]
 
-        return root
+        return additional_classes

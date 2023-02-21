@@ -47,9 +47,26 @@ class WriteYang:
         # render the attributes first
         if "attributes" in cls.content:
             attributes = cls.content["attributes"]
+
             for attribute in attributes:
 
-                if attribute["type"] == "enumeration":
+                if attribute["type"] == "key":
+                    self.output += "\t" * level
+                    self.output += "key "
+                    self.output += attribute["name"]
+                    self.output += ";"
+
+                    self.output += "\t" * level
+
+                elif attribute["type"] == "unique":
+                    self.output += "\t" * level
+                    self.output += "unique "
+                    self.output += attribute["name"]
+                    self.output += ";"
+
+                    self.output += "\t" * level
+
+                elif attribute["type"] == "enumeration":
 
                     self.output += "\t" * level
                     self.output += "leaf "

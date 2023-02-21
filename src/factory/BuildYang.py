@@ -50,14 +50,15 @@ class BuildYang:
                 clsYang = classInfo(cls["@name"], cls["@xmi:id"])
                 if "ownedAttribute" in cls:
 
-                    root = clsYang.collectInfo(
+                    classes = clsYang.collectInfo(
                         cls["ownedAttribute"],
                         self.ProfileInfo)
 
                 self.Graph.append(clsYang)
 
-                if root is not None:
-                    self.Graph.append(root)
+                if len(classes) > 0:
+                    for clss in classes:
+                        self.Graph.append(clss)
 
                 self.Record[cls["@xmi:id"]] = count
                 count += 1
@@ -130,7 +131,7 @@ class BuildYang:
                 if type(attr["type"]) is not dict:
 
                     if attr["type"] == indAttri["to"]:
-                        
+
                         attr["value"] = indAttri
                         attr["type"] = indAttri["type"]
 
