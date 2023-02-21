@@ -56,6 +56,9 @@ class BuildYang:
 
                 self.Graph.append(clsYang)
 
+                # post-processing
+                classes = [*classes, *clsYang.post_process()]
+
                 if len(classes) > 0:
                     for clss in classes:
                         self.Graph.append(clss)

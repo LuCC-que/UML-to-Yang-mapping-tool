@@ -8,6 +8,7 @@ class classInfo:
         self.classId = id
         self.Associations = []
         self.content = {}
+        self.contain_uniqueSet = False
 
     def collectInfo(self, attribute, profiles):
 
@@ -130,6 +131,7 @@ class classInfo:
                             additional_classes.append(root)
 
             if key == "OpenModel_Profile:OpenModelAttribute":
+
                 for attrObj in value:
 
                     if len(attrObj) < 3 or len(value) < 3:
@@ -144,6 +146,55 @@ class classInfo:
                                 # append all value beside first two into
                                 # attr
                                 for key in keys_to_append:
+                                    if key == "uniqueSet":
+                                        self.contain_uniqueSet = True
                                     attr[key] = attrObj[key]
 
         return additional_classes
+
+    def post_process(self):
+        classes = []
+        if self.contain_uniqueSet == True:
+            classes = [*classes, self.unique_set()]
+
+        return classes
+
+    def unique_set(self):
+        unq_cls = classInfo(self.className, self.classId + "-_-")
+        asso = {"to": self.classId, "type": "shared"}
+        unq_cls.Associations.append(asso)
+        unq_cls.content["RootElement"] = "2"
+
+        partOfObject = {"name": "none",
+                        "id":  "_",
+                        "type": "key",
+                        }
+        unq_cls.content["attributes"] = []
+
+        unique_list = []
+        for attr in self.content["attributes"]:
+            if "uniqueSet" in attr:
+                if type(attr["uniqueSet"]) is not list:
+                    attr["uniqueSet"] = [attr["uniqueSet"]]
+
+                for index in attr["uniqueSet"]:
+                    if len(unique_list) < int(index):
+                        unique_list.append(attr["name"])
+                    else:
+                        unique_list[int(index) - 1] += " " + attr["name"]
+
+            if "@partOfObjectKey" in attr:
+                if attr["@partOfObjectKey"] == "1":
+                    partOfObject["name"] = attr["name"]
+
+        unq_cls.content["attributes"].append(partOfObject)
+
+        for unique_attr in unique_list:
+
+            unq_cls_uni = {"name": unique_attr,
+                           "id": unique_attr + "_q",
+                           "type": "unique",
+                           }
+            unq_cls.content["attributes"].append(unq_cls_uni)
+
+        return unq_cls

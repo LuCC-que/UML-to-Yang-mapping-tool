@@ -333,3 +333,37 @@ def test_p23():
     result = WriteYang(ob.Graph, ob.RenderStart)
 
     assert format_and_compare(expect, result.output)
+
+
+def test_p24():
+    '''
+    this is UniqueSetExample case
+
+    see p24 in the TR-531
+    '''
+
+    expect =                                    \
+        'list UniqueSetExample {                \
+                key attribute1;                 \
+                unique attribute1 attribute2;   \
+                unique attribute2 attribute3;   \
+                uses UniqueSetExample;          \
+        }                                       \
+        grouping UniqueSetExample {             \
+                leaf attribute1{                \
+                        type String;            \
+                        config false;           \
+                }                               \
+                leaf attribute2{                \
+                        type Integer;           \
+                }                               \
+                leaf attribute3{                \
+                        type String;            \
+                }                               \
+        }'
+
+    file_path = dir_path.joinpath("p24.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)
