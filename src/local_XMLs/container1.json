@@ -7,7 +7,7 @@
     "@xmlns:OpenModel_Profile": "http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29",
     "@xmlns:ecore": "http://www.eclipse.org/emf/2002/Ecore",
     "@xmlns:uml": "http://www.eclipse.org/uml2/5.0.0/UML",
-    "@xsi:schemaLocation": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ",
+    "@xsi:schemaLocation": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg                       http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ",
     "uml:Model": {
       "@xmi:id": "_uyCqMFfpEe2mSIV9lJGM8w",
       "@name": "container1",
@@ -118,7 +118,8 @@
     },
     "OpenModel_Profile:OpenModelAttribute": {
       "@xmi:id": "_E-PmoFfqEe2mSIV9lJGM8w",
-      "@base_StructuralFeature": "_E-MjUFfqEe2mSIV9lJGM8w"
+      "@base_StructuralFeature": "_E-MjUFfqEe2mSIV9lJGM8w",
+      "@valueRange": "1"
     },
     "OpenInterfaceModel_Profile:OpenInterfaceModelAttribute": {
       "@xmi:id": "_E-QNsFfqEe2mSIV9lJGM8w",

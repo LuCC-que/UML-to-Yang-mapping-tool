@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+  <uml:Model xmi:id="_ChEhEKvSEe25d7kya9NhQQ" name="p17a">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_ChrlEKvSEe25d7kya9NhQQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HZrOwKvSEe25d7kya9NhQQ"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HxqQ8KvSEe25d7kya9NhQQ" name="RootClass">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Q5di8KvSEe25d7kya9NhQQ" name="attribute1">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_Q5di8avSEe25d7kya9NhQQ">
+          <body>1</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Tc5JAKvSEe25d7kya9NhQQ" name="attribute2">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_Tc5JAavSEe25d7kya9NhQQ">
+          <body>1</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Ecpc8KvSEe25d7kya9NhQQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EcrSIKvSEe25d7kya9NhQQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_EfIJMKvSEe25d7kya9NhQQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_EfIwQKvSEe25d7kya9NhQQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_EfIwQavSEe25d7kya9NhQQ" base_Model="_ChEhEKvSEe25d7kya9NhQQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_HxqQ8avSEe25d7kya9NhQQ" base_Class="_HxqQ8KvSEe25d7kya9NhQQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_HxrfEKvSEe25d7kya9NhQQ" base_Class="_HxqQ8KvSEe25d7kya9NhQQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Q5eKAKvSEe25d7kya9NhQQ" base_StructuralFeature="_Q5di8KvSEe25d7kya9NhQQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Q5f_MKvSEe25d7kya9NhQQ" base_Property="_Q5di8KvSEe25d7kya9NhQQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Tc5JAqvSEe25d7kya9NhQQ" base_StructuralFeature="_Tc5JAKvSEe25d7kya9NhQQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Tc6XIKvSEe25d7kya9NhQQ" base_Property="_Tc5JAKvSEe25d7kya9NhQQ"/>
+  <OpenInterfaceModel_Profile:RootElement xmi:id="_WcGsIKvSEe25d7kya9NhQQ" base_Class="_HxqQ8KvSEe25d7kya9NhQQ" name="Root" multiplicity="1..*" description="this is list"/>
+</xmi:XMI>
