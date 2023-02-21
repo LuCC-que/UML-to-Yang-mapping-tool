@@ -20,6 +20,100 @@ def format_and_compare(str1, str2) -> bool:
     return str1 == str2
 
 
+def test_multiAsso():
+
+    expect =                                    \
+        "container Class4 {                     \
+                leaf name{                      \
+                        type String;            \
+                }                               \
+                grouping Class5 {               \
+                        leaf value{             \
+                                type String;    \
+                        }                       \
+                }                               \
+                grouping Class7 {               \
+                        leaf value{             \
+                                type String;    \
+                        }                       \
+                        uses Class5;            \
+                }                               \
+        }                                       \
+        grouping Class5 {                       \
+                leaf value{                     \
+                        type String;            \
+                }                               \
+        }"
+
+    file_path = dir_path.joinpath("multiAsso.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)
+
+
+def test_multiAsso_4():
+
+    expect =                                    \
+        "container Class13 {                    \
+                leaf attr1{                     \
+                        type String;            \
+                }                               \
+                grouping Class14 {              \
+                        leaf attr2{             \
+                                type String;    \
+                        }                       \
+                        uses Class16;           \
+                        uses Class18;           \
+                }                               \
+        }                                       \
+        grouping Class18 {                      \
+                leaf attr3{                     \
+                        type String;            \
+                }                               \
+        }                                       \
+        list Class16 {                          \
+                leaf attr5{                     \
+                        type String;            \
+                }                               \
+                grouping Class18 {              \
+                        leaf attr3{             \
+                                type String;    \
+                        }                       \
+                }                               \
+        }                                       \
+        container Class3 {                      \
+                leaf name{                      \
+                        type String;            \
+                }                               \
+                uses Class4;                    \
+                uses Class5;                    \
+                list Class6 {                   \
+                        leaf thenum{            \
+                                type Integer;   \
+                        }                       \
+                        uses Class4;            \
+                        uses Class5;            \
+                }                               \
+        }                                       \
+        grouping Class5 {                       \
+                leaf name{                      \
+                        type String;            \
+                }                               \
+        }                                       \
+        grouping Class4 {                       \
+                leaf number{                    \
+                        type Integer;           \
+                }                               \
+        }"
+
+    file_path = dir_path.joinpath("multiAsso-4.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)
+
+
 def test_p15():
 
     expect =                        \
@@ -208,6 +302,33 @@ def test_p22_i():
         }'
 
     file_path = dir_path.joinpath("p22-i.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)
+
+
+def test_p23():
+    '''
+    this is list case
+
+    see p23 in the TR-531
+    '''
+
+    expect =                                    \
+        'list UniqueExample {                   \
+                key uniqueAttribute;            \
+                unique uniqueAttribute;         \
+                uses UniqueExample;             \
+        }                                       \
+        grouping UniqueExample {                \
+                leaf uniqueAttribute{           \
+                        type String;            \
+                        mandatory true;         \
+                }                               \
+        }'
+
+    file_path = dir_path.joinpath("p23.uml")
     ob = BuildYang(file_path)
     result = WriteYang(ob.Graph, ob.RenderStart)
 
