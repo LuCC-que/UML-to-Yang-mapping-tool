@@ -1,0 +1,274 @@
+{
+  "xmi:XMI": {
+    "@xmi:version": "20131001",
+    "@xmlns:xmi": "http://www.omg.org/spec/XMI/20131001",
+    "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    "@xmlns:OpenInterfaceModel_Profile": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9",
+    "@xmlns:OpenModel_Profile": "http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29",
+    "@xmlns:ecore": "http://www.eclipse.org/emf/2002/Ecore",
+    "@xmlns:uml": "http://www.eclipse.org/uml2/5.0.0/UML",
+    "@xsi:schemaLocation": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 /OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 /OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ",
+    "uml:Model": {
+      "@xmi:id": "_sLA70LG1Ee2bMNEWE4MJfQ",
+      "@name": "p26",
+      "packageImport": {
+        "@xmi:type": "uml:PackageImport",
+        "@xmi:id": "_sQGQILG1Ee2bMNEWE4MJfQ",
+        "importedPackage": {
+          "@xmi:type": "uml:Model",
+          "@href": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"
+        }
+      },
+      "packagedElement": [
+        {
+          "@xmi:type": "uml:Class",
+          "@xmi:id": "_teadYLG1Ee2bMNEWE4MJfQ",
+          "@name": "ClassR",
+          "ownedAttribute": [
+            {
+              "@xmi:type": "uml:Property",
+              "@xmi:id": "_6Un60LG1Ee2bMNEWE4MJfQ",
+              "@name": "attributeCurrent",
+              "@type": "_t5kvYLG1Ee2bMNEWE4MJfQ",
+              "ownedComment": {
+                "@xmi:type": "uml:Comment",
+                "@xmi:id": "_Jh6kYLG2Ee2bMNEWE4MJfQ",
+                "body": "1"
+              }
+            },
+            {
+              "@xmi:type": "uml:Property",
+              "@xmi:id": "_IWjkgLG2Ee2bMNEWE4MJfQ",
+              "@name": "attributePotential",
+              "@type": "_t5kvYLG1Ee2bMNEWE4MJfQ",
+              "ownedComment": {
+                "@xmi:type": "uml:Comment",
+                "@xmi:id": "_IWjkgbG2Ee2bMNEWE4MJfQ",
+                "body": "1..*"
+              }
+            }
+          ]
+        },
+        {
+          "@xmi:type": "uml:DataType",
+          "@xmi:id": "_t5kvYLG1Ee2bMNEWE4MJfQ",
+          "@name": "DataTypeA",
+          "ownedAttribute": [
+            {
+              "@xmi:type": "uml:Property",
+              "@xmi:id": "_3OZ7ULG2Ee2bMNEWE4MJfQ",
+              "@name": "attribute1",
+              "ownedComment": {
+                "@xmi:type": "uml:Comment",
+                "@xmi:id": "_3OZ7UbG2Ee2bMNEWE4MJfQ",
+                "body": "1"
+              },
+              "type": {
+                "@xmi:type": "uml:PrimitiveType",
+                "@href": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"
+              }
+            },
+            {
+              "@xmi:type": "uml:Property",
+              "@xmi:id": "_745UgLG2Ee2bMNEWE4MJfQ",
+              "@name": "attribute2",
+              "ownedComment": {
+                "@xmi:type": "uml:Comment",
+                "@xmi:id": "_745UgbG2Ee2bMNEWE4MJfQ",
+                "body": "0..1"
+              },
+              "type": {
+                "@xmi:type": "uml:PrimitiveType",
+                "@href": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"
+              }
+            },
+            {
+              "@xmi:type": "uml:Property",
+              "@xmi:id": "_-zrqoLG2Ee2bMNEWE4MJfQ",
+              "@name": "attribute3",
+              "ownedComment": {
+                "@xmi:type": "uml:Comment",
+                "@xmi:id": "_-zrqobG2Ee2bMNEWE4MJfQ",
+                "body": "1"
+              },
+              "type": {
+                "@xmi:type": "uml:PrimitiveType",
+                "@href": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"
+              }
+            }
+          ]
+        }
+      ],
+      "profileApplication": [
+        {
+          "@xmi:type": "uml:ProfileApplication",
+          "@xmi:id": "_sOKWcLG1Ee2bMNEWE4MJfQ",
+          "eAnnotations": [
+            {
+              "@xmi:type": "ecore:EAnnotation",
+              "@xmi:id": "_sP40wLG1Ee2bMNEWE4MJfQ",
+              "@source": "PapyrusVersion",
+              "details": [
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP40wbG1Ee2bMNEWE4MJfQ",
+                  "@key": "Version",
+                  "@value": "0.0.10"
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP40wrG1Ee2bMNEWE4MJfQ",
+                  "@key": "Comment",
+                  "@value": "Made OpenInterfaceModelClass stereotype obsolete.\r\nMade OpenInterfaceModelAttribute::attributeValueChangeNotification property obsolete.\r\nNotificationDefinition enumeration no longer used.\r\nBITS removed from Encoding enumeration.\r\nBitDefinition data type deleted.\r\nOptional Bit stereotype (extending the Property meta class) added.\r\nOptional Bits stereotype (extending the DataType meta class) added."
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP40w7G1Ee2bMNEWE4MJfQ",
+                  "@key": "Copyright",
+                  "@value": ""
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP40xLG1Ee2bMNEWE4MJfQ",
+                  "@key": "Date",
+                  "@value": "2018-09-17"
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP40xbG1Ee2bMNEWE4MJfQ",
+                  "@key": "Author",
+                  "@value": ""
+                }
+              ]
+            },
+            {
+              "@xmi:type": "ecore:EAnnotation",
+              "@xmi:id": "_sOKWcbG1Ee2bMNEWE4MJfQ",
+              "@source": "http://www.eclipse.org/uml2/2.0.0/UML",
+              "references": {
+                "@xmi:type": "ecore:EPackage",
+                "@href": "/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"
+              }
+            }
+          ],
+          "appliedProfile": {
+            "@xmi:type": "uml:Profile",
+            "@href": "/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"
+          }
+        },
+        {
+          "@xmi:type": "uml:ProfileApplication",
+          "@xmi:id": "_sP6C4LG1Ee2bMNEWE4MJfQ",
+          "eAnnotations": [
+            {
+              "@xmi:type": "ecore:EAnnotation",
+              "@xmi:id": "_sP6p8LG1Ee2bMNEWE4MJfQ",
+              "@source": "PapyrusVersion",
+              "details": [
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP6p8bG1Ee2bMNEWE4MJfQ",
+                  "@key": "Version",
+                  "@value": "0.2.17"
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP6p8rG1Ee2bMNEWE4MJfQ",
+                  "@key": "Comment",
+                  "@value": "Editorial corrections in the description of OpenModelAttribute::partOfObjectKey and Reference."
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP6p87G1Ee2bMNEWE4MJfQ",
+                  "@key": "Copyright",
+                  "@value": ""
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP6p9LG1Ee2bMNEWE4MJfQ",
+                  "@key": "Date",
+                  "@value": "2018-12-12"
+                },
+                {
+                  "@xmi:type": "ecore:EStringToStringMapEntry",
+                  "@xmi:id": "_sP6p9bG1Ee2bMNEWE4MJfQ",
+                  "@key": "Author",
+                  "@value": ""
+                }
+              ]
+            },
+            {
+              "@xmi:type": "ecore:EAnnotation",
+              "@xmi:id": "_sP6C4bG1Ee2bMNEWE4MJfQ",
+              "@source": "http://www.eclipse.org/uml2/2.0.0/UML",
+              "references": {
+                "@xmi:type": "ecore:EPackage",
+                "@href": "/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"
+              }
+            }
+          ],
+          "appliedProfile": {
+            "@xmi:type": "uml:Profile",
+            "@href": "/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"
+          }
+        }
+      ]
+    },
+    "OpenModel_Profile:OpenModelStatement": {
+      "@xmi:id": "_sP6C4rG1Ee2bMNEWE4MJfQ",
+      "@base_Model": "_sLA70LG1Ee2bMNEWE4MJfQ"
+    },
+    "OpenInterfaceModel_Profile:OpenInterfaceModelClass": {
+      "@xmi:id": "_tgjLYLG1Ee2bMNEWE4MJfQ",
+      "@base_Class": "_teadYLG1Ee2bMNEWE4MJfQ"
+    },
+    "OpenModel_Profile:OpenModelClass": {
+      "@xmi:id": "_tgjycLG1Ee2bMNEWE4MJfQ",
+      "@base_Class": "_teadYLG1Ee2bMNEWE4MJfQ"
+    },
+    "OpenInterfaceModel_Profile:OpenInterfaceModelAttribute": [
+      {
+        "@xmi:id": "_6Un60bG1Ee2bMNEWE4MJfQ",
+        "@base_Property": "_6Un60LG1Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_IWjkgrG2Ee2bMNEWE4MJfQ",
+        "@base_Property": "_IWjkgLG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_3OaiYLG2Ee2bMNEWE4MJfQ",
+        "@base_Property": "_3OZ7ULG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_745UgrG2Ee2bMNEWE4MJfQ",
+        "@base_Property": "_745UgLG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_-zsRsLG2Ee2bMNEWE4MJfQ",
+        "@base_Property": "_-zrqoLG2Ee2bMNEWE4MJfQ"
+      }
+    ],
+    "OpenModel_Profile:OpenModelAttribute": [
+      {
+        "@xmi:id": "_6UpI8LG1Ee2bMNEWE4MJfQ",
+        "@base_StructuralFeature": "_6Un60LG1Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_IWlZsLG2Ee2bMNEWE4MJfQ",
+        "@base_StructuralFeature": "_IWjkgLG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_3ObwgLG2Ee2bMNEWE4MJfQ",
+        "@base_StructuralFeature": "_3OZ7ULG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_747JsLG2Ee2bMNEWE4MJfQ",
+        "@base_StructuralFeature": "_745UgLG2Ee2bMNEWE4MJfQ"
+      },
+      {
+        "@xmi:id": "_-zs4wLG2Ee2bMNEWE4MJfQ",
+        "@base_StructuralFeature": "_-zrqoLG2Ee2bMNEWE4MJfQ"
+      }
+    ]
+  }
+}

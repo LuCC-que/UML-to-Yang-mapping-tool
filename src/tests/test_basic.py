@@ -367,3 +367,40 @@ def test_p24():
     result = WriteYang(ob.Graph, ob.RenderStart)
 
     assert format_and_compare(expect, result.output)
+
+
+def test_p26():
+    '''
+    this is UniqueSetExample case
+
+    see p26 in the TR-531
+    '''
+
+    expect =                                            \
+        'grouping ClassR {                              \
+                container attributeCurrent {            \
+                        uses DataTypeA;                 \
+                }                                       \
+                list attributePotential {               \
+                        uses DataTypeA;                 \
+                }                                       \
+        }                                               \
+        grouping DataTypeA {                            \
+                leaf attribute1{                        \
+                        type String;                    \
+                        mandatory true;                 \
+                }                                       \
+                leaf attribute2{                        \
+                        type Integer;                   \
+                }                                       \
+                leaf attribute3{                        \
+                        type String;                    \
+                        mandatory true;                 \
+                }                                       \
+        }'
+
+    file_path = dir_path.joinpath("p26.uml")
+    ob = BuildYang(file_path)
+    result = WriteYang(ob.Graph, ob.RenderStart)
+
+    assert format_and_compare(expect, result.output)
