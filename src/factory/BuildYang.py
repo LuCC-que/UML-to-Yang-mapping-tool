@@ -1,4 +1,5 @@
 import xmltodict
+import copy
 from .classInfo import classInfo
 from random import uniform
 
@@ -17,6 +18,8 @@ class BuildYang:
         self.indAttriRepo = []
 
         self.DataTypeRepo = []
+
+        self.constraint = []
 
         self.toXmlMode(path)
         self.findClasses()
@@ -95,6 +98,9 @@ class BuildYang:
                         if is_insert is True:
                             self.DataTypeRepo.pop(i)
 
+            elif cls["@xmi:type"] == "uml:Constraint":
+                self.constraint.append(cls)
+
             elif cls["@xmi:type"] == "uml:Enumeration":
 
                 # process here
@@ -146,8 +152,14 @@ class BuildYang:
         print("done")
 
     def classPostProcessing(self):
+
+        if len(self.constraint) > 0:
+            for cons in self.constraint:
+                if cons["specification"]["@value"] == "xor":
+                    self.XORconstraintHandler(cons)
+
         # a general post processing of
-        # a class
+        # assotiations
         for node in self.Graph:
             if len(node.Associations) < 1:
                 continue
@@ -270,3 +282,70 @@ class BuildYang:
             new_asso = {"to": new_node.classId, "type": asso["type"]}
         print(node.className, asso["mul"])
         return new_node, new_asso
+
+    def XORconstraintHandler(self, constraint):
+
+        # find the class it belongs to
+
+        rootNode = None
+        AssoList = {}
+
+        for consELe in constraint["constrainedElement"]:
+            if consELe["@xmi:type"] == "uml:Class":
+                for node in self.Graph:
+                    if node.classId == consELe["@href"][1:]:
+                        rootNode = node
+
+            if consELe["@xmi:type"] == "uml:Association":
+
+                for toNode in self.Graph:
+                    for toNode_asso in toNode.Associations:
+                        if toNode_asso["assoId"] == consELe["@href"][1:]:
+
+                            for asso_node in self.Graph:
+                                if asso_node.classId == toNode_asso["to"]:
+                                    AssoList[asso_node.classId] = asso_node
+        choicesNode = classInfo(
+            constraint["@name"], "choices_" + str(uniform(0.0, 100.0)))
+        choicesNode.status = "choice-constraint"
+
+        AssotoRemove = []
+        asso_index = 0
+        case_index = 1
+        for asso in rootNode.Associations:
+            if asso["to"] in AssoList:
+                AssotoRemove.append(asso_index)
+                caseNode = classInfo(
+                    "alt-" + str(case_index),
+                    "case_"
+                    + str(case_index)
+                    + str(uniform(0.0, 100.0)))
+
+                newNode = copy.deepcopy(AssoList[asso["to"]])
+
+                newNode.classId += "case_" + \
+                    str(case_index) + str(uniform(0.0, 100.0))
+
+                caseAsso = {"to": asso["to"], "type": "shared"}
+                newNode.Associations.append(caseAsso)
+
+                choicesAsso = {"to": caseNode.classId,
+                               "type": "composed"}
+
+                choicesNode.Associations.append(choicesAsso)
+
+                self.Graph.append(caseNode)
+                self.Graph.append(newNode)
+
+                self.Record[caseNode.classId] = len(self.Record)
+                self.Record[newNode.classId] = len(self.Record)
+
+                del newNode.content["attributes"]
+
+        self.Graph.append(choicesNode)
+        self.Record[choicesNode.classId] = len(self.Record)
+
+        for assoidx in AssotoRemove:
+            rootNode.Associations.pop(assoidx)
+
+        return

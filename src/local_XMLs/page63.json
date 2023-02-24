@@ -7,7 +7,7 @@
     "@xmlns:OpenModel_Profile": "http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29",
     "@xmlns:ecore": "http://www.eclipse.org/emf/2002/Ecore",
     "@xmlns:uml": "http://www.eclipse.org/uml2/5.0.0/UML",
-    "@xsi:schemaLocation": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ",
+    "@xsi:schemaLocation": "http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg                       http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ",
     "uml:Model": {
       "@xmi:id": "_6SYF4OjEEeyUUOWHNReWTA",
       "@name": "page63",
@@ -24,30 +24,6 @@
           "@xmi:type": "uml:Class",
           "@xmi:id": "_90NN4OjEEeyUUOWHNReWTA",
           "@name": "Substitute",
-          "ownedRule": {
-            "@xmi:type": "uml:Constraint",
-            "@xmi:id": "_HnnBoOjFEeyUUOWHNReWTA",
-            "@name": "AlternativeChoice",
-            "constrainedElement": [
-              {
-                "@xmi:type": "uml:LiteralString",
-                "@href": "../OnfModel/CoreModel.uml#_eilisHoDEeO2-YDhAjVilg"
-              },
-              {
-                "@xmi:type": "uml:Association",
-                "@href": "#_EaH8gOjGEeyUUOWHNReWTA"
-              },
-              {
-                "@xmi:type": "uml:Model",
-                "@href": "#_6SYF4OjEEeyUUOWHNReWTA"
-              }
-            ],
-            "specification": {
-              "@xmi:type": "uml:LiteralString",
-              "@xmi:id": "_WRcY0OjFEeyUUOWHNReWTA",
-              "@value": "xor"
-            }
-          },
           "ownedAttribute": [
             {
               "@xmi:type": "uml:Property",
@@ -220,6 +196,42 @@
             "@name": "substitute",
             "@type": "_90NN4OjEEeyUUOWHNReWTA",
             "@association": "_EaH8gOjGEeyUUOWHNReWTA"
+          }
+        },
+        {
+          "@xmi:type": "uml:Constraint",
+          "@xmi:id": "_HnnBoOjFEeyUUOWHNReWTA",
+          "@name": "AlternativeChoice",
+          "constrainedElement": [
+            {
+              "@xmi:type": "uml:LiteralString",
+              "@href": "../OnfModel/CoreModel.uml#_eilisHoDEeO2-YDhAjVilg"
+            },
+            {
+              "@xmi:type": "uml:Association",
+              "@href": "#_EaH8gOjGEeyUUOWHNReWTA"
+            },
+            {
+              "@xmi:type": "uml:Model",
+              "@href": "#_6SYF4OjEEeyUUOWHNReWTA"
+            },
+            {
+              "@xmi:type": "uml:Association",
+              "@href": "#_EC5vUOjGEeyUUOWHNReWTA"
+            },
+            {
+              "@xmi:type": "uml:Association",
+              "@href": "#_DocA4OjGEeyUUOWHNReWTA"
+            },
+            {
+              "@xmi:type": "uml:Class",
+              "@href": "#_90NN4OjEEeyUUOWHNReWTA"
+            }
+          ],
+          "specification": {
+            "@xmi:type": "uml:LiteralString",
+            "@xmi:id": "_WRcY0OjFEeyUUOWHNReWTA",
+            "@value": "xor"
           }
         }
       ],

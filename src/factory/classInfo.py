@@ -23,7 +23,8 @@ class classInfo:
             if "@association" in attribute:
                 # association case
                 asso = {"to": attribute["@type"],
-                        "type": attribute["@aggregation"]}
+                        "type": attribute["@aggregation"],
+                        "assoId": attribute["@association"]}
                 if "lowerValue" not in attribute and "upperValue" not in attribute:
                     asso["mul"] = "1"
 
