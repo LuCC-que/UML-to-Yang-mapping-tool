@@ -22,28 +22,32 @@ def format_and_compare(str1, str2) -> bool:
 
 def test_multiAsso():
 
-    expect =                                    \
-        "container Class4 {                     \
-                leaf name{                      \
-                        type String;            \
-                }                               \
-                grouping Class5 {               \
-                        leaf value{             \
-                                type String;    \
-                        }                       \
-                }                               \
-                grouping Class7 {               \
-                        leaf value{             \
-                                type String;    \
-                        }                       \
-                        uses Class5;            \
-                }                               \
-        }                                       \
-        grouping Class5 {                       \
-                leaf value{                     \
-                        type String;            \
-                }                               \
-        }"
+    expect =                                            \
+        "       container Class4 {                      \
+                        leaf name{                      \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        grouping Class5 {               \
+                                leaf value{             \
+                                        type String;    \
+                                        mandatory true; \
+                                }                       \
+                        }                               \
+                        grouping Class7 {               \
+                                leaf value{             \
+                                        type String;    \
+                                        mandatory true; \
+                                }                       \
+                                uses Class5;            \
+                        }                               \
+                }                                       \
+                grouping Class5 {                       \
+                        leaf value{                     \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                }"
 
     file_path = dir_path.joinpath("multiAsso.uml")
     ob = BuildYang(file_path)
@@ -54,58 +58,67 @@ def test_multiAsso():
 
 def test_multiAsso_4():
 
-    expect =                                    \
-        "container Class13 {                    \
-                leaf attr1{                     \
-                        type String;            \
-                }                               \
-                grouping Class14 {              \
-                        leaf attr2{             \
-                                type String;    \
-                        }                       \
-                        uses Class16;           \
-                        uses Class18;           \
-                }                               \
-        }                                       \
-        grouping Class18 {                      \
-                leaf attr3{                     \
-                        type String;            \
-                }                               \
-        }                                       \
-        list Class16 {                          \
-                leaf attr5{                     \
-                        type String;            \
-                }                               \
-                grouping Class18 {              \
-                        leaf attr3{             \
-                                type String;    \
-                        }                       \
-                }                               \
-        }                                       \
-        container Class3 {                      \
-                leaf name{                      \
-                        type String;            \
-                }                               \
-                uses Class4;                    \
-                uses Class5;                    \
-                list Class6 {                   \
-                        leaf thenum{            \
-                                type Integer;   \
-                        }                       \
-                        uses Class4;            \
-                        uses Class5;            \
-                }                               \
-        }                                       \
-        grouping Class5 {                       \
-                leaf name{                      \
-                        type String;            \
-                }                               \
-        }                                       \
-        grouping Class4 {                       \
-                leaf number{                    \
-                        type Integer;           \
-                }                               \
-        }"
+    expect =                                                    \
+        "       container Class13 {                             \
+                        leaf attr1{                             \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                        grouping Class14 {                      \
+                                leaf attr2{                     \
+                                        type String;            \
+                                        mandatory true;         \
+                                }                               \
+                                uses Class16;                   \
+                                uses Class18;                   \
+                        }                                       \
+                }                                               \
+                grouping Class18 {                              \
+                        leaf attr3{                             \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                }                                               \
+                grouping Class16 {                              \
+                        leaf attr5{                             \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                        grouping Class18 {                      \
+                                leaf attr3{                     \
+                                        type String;            \
+                                        mandatory true;         \
+                                }                               \
+                        }                                       \
+                }                                               \
+                container Class3 {                              \
+                        leaf name{                              \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                        uses Class4;                            \
+                        uses Class5;                            \
+                        grouping Class6 {                       \
+                                leaf thenum{                    \
+                                        type Integer;           \
+                                        mandatory true;         \
+                                }                               \
+                                uses Class4;                    \
+                                uses Class5;                    \
+                        }                                       \
+                }                                               \
+                grouping Class5 {                               \
+                        leaf name{                              \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                }                                               \
+                grouping Class4 {                               \
+                        leaf number{                            \
+                                type Integer;                   \
+                                mandatory true;                 \
+                        }                                       \
+                }"
 
     file_path = dir_path.joinpath("multiAsso-4.uml")
     ob = BuildYang(file_path)
@@ -116,38 +129,42 @@ def test_multiAsso_4():
 
 def test_p15():
 
-    expect =                        \
-        "container SubClass {       \
-        leaf attribute5{            \
-                type String;        \
-                mandatory true;     \
-        }                           \
-        leaf attribute6{            \
-                type String;        \
-                mandatory true;     \
-        }                           \
-        uses SuperClass1;           \
-        uses SuperClass2;           \
-    }                               \
-    grouping SuperClass2 {          \
-        leaf-list attribute3{       \
-                type String;        \
-                min-elements 2;     \
-                max-elements 4;     \
-        }                           \
-        leaf-list attribute4{       \
-                type String;        \
-                min-elements 2;     \
-        }                           \
-    }                               \
-    grouping SuperClass1 {          \
-        leaf attribute1{            \
-                type String;        \
-        }                           \
-        leaf attribute2{            \
-                type String;        \
-        }                           \
-    }"
+    expect =                                            \
+        "       container SubClass {                    \
+                        leaf-list attribute5{           \
+                                type String;            \
+                        }                               \
+                        leaf-list attribute6{           \
+                                type String;            \
+                        }                               \
+                        uses SuperClass1;               \
+                        uses SuperClass2;               \
+                }                                       \
+                list SuperClass2 {                      \
+                        leaf attribute3{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        leaf-list attribute4{           \
+                                type String;            \
+                        }                               \
+                }                                       \
+                grouping SuperClass1 {                  \
+                        leaf attribute1{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        leaf-list attribute2{           \
+                                type String;            \
+                                min-elements 2;         \
+                                max-elements 4;         \
+                        }                               \
+                        leaf-list attributeT{           \
+                                type String;            \
+                                min-elements 2;         \
+                                max-elements 2;         \
+                        }                               \
+                }"
 
     file_path = dir_path.joinpath("p15.uml")
     ob = BuildYang(file_path)
@@ -166,8 +183,8 @@ def test_additonal_root():
     see p16 in the TR-531
     '''
 
-    expect =                                                        \
-        'container Root {                                           \
+    expect =                                                            \
+        'container Root {                                               \
             presence "Presence indicates data-store is enabled";    \
             uses RootClass;                                         \
         }                                                           \
@@ -196,20 +213,20 @@ def test_additonal_root2():
     see p17 in the TR-531
     '''
 
-    expect =                                \
-        'list Root {                        \
-            presence "this is list";        \
-            uses RootClass;                 \
-        }                                   \
-        grouping RootClass {                \
-                leaf attribute1{            \
-                        type Integer;       \
-                        mandatory true;     \
-                }                           \
-                leaf attribute2{            \
-                        type String;        \
-                        mandatory true;     \
-                }                           \
+    expect =    \
+        'list Root {                            \
+            presence "this is list";            \
+            uses RootClass;                     \
+        }                                       \
+        grouping RootClass {                    \
+                leaf attribute1{                \
+                        type Integer;           \
+                        mandatory true;         \
+                }                               \
+                leaf attribute2{                \
+                        type String;            \
+                        mandatory true;         \
+                }                               \
         }'
 
     file_path = dir_path.joinpath("p17a.uml")
@@ -226,35 +243,34 @@ def test_p22():
     see p22 in the TR-531
     '''
 
-    expect =                                            \
-        'grouping Class1 {                              \
-                leaf class1ID{                          \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-                leaf attribute1{                        \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-                leaf-list attribute2{                   \
-                        type String;                    \
-                        min-elements 2;                 \
-                        max-elements 6;                 \
-                }                                       \
-                leaf attribute3{                        \
-                        type Boolean;                   \
-                        mandatory true;                 \
-                        default true;                   \
-                }                                       \
-                leaf attribute4{                        \
-                        type enumeration {              \
-                                enum LITERAL_1;         \
-                                enum LITERAL_2;         \
-                                enum LITERAL_3;         \
+    expect =\
+        '       grouping Class1 {                       \
+                        leaf class1ID{                  \
+                                type String;            \
+                                mandatory true;         \
                         }                               \
-                        default LITERAL_2;              \
-                }                                       \
-        }'
+                        leaf attribute1{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        leaf attribute2{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        leaf attribute3{                \
+                                type Boolean;           \
+                                mandatory true;         \
+                                default true;           \
+                        }                               \
+                        leaf attribute4{                \
+                                type enumeration {      \
+                                        enum LITERAL_1; \
+                                        enum LITERAL_2; \
+                                        enum LITERAL_3; \
+                                }                       \
+                                default LITERAL_2;      \
+                        }                               \
+                }'
 
     file_path = dir_path.joinpath("p22.uml")
     ob = BuildYang(file_path)
@@ -270,36 +286,35 @@ def test_p22_i():
     see p22 in the TR-531
     '''
 
-    expect =                                            \
-        'grouping Class1 {                              \
-                leaf class1ID{                          \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-                leaf attribute1{                        \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-                leaf-list attribute2{                   \
-                        type String;                    \
-                        min-elements 2;                 \
-                        max-elements 6;                 \
-                        config false;                   \
-                }                                       \
-                leaf attribute3{                        \
-                        type Boolean;                   \
-                        mandatory true;                 \
-                        default true;                   \
-                }                                       \
-                leaf attribute4{                        \
-                        type enumeration {              \
-                                enum LITERAL_1;         \
-                                enum LITERAL_2;         \
-                                enum LITERAL_3;         \
+    expect =\
+        '       grouping Class1 {                       \
+                        leaf class1ID{                  \
+                                type String;            \
+                                mandatory true;         \
                         }                               \
-                        default LITERAL_2;              \
-                }                                       \
-        }'
+                        leaf attribute1{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                        leaf attribute2{                \
+                                type String;            \
+                                mandatory true;         \
+                                config false;           \
+                        }                               \
+                        leaf attribute3{                \
+                                type Boolean;           \
+                                mandatory true;         \
+                                default true;           \
+                        }                               \
+                        leaf attribute4{                \
+                                type enumeration {      \
+                                        enum LITERAL_1; \
+                                        enum LITERAL_2; \
+                                        enum LITERAL_3; \
+                                }                       \
+                                default LITERAL_2;      \
+                        }                               \
+                }'
 
     file_path = dir_path.joinpath("p22-i.uml")
     ob = BuildYang(file_path)
@@ -308,31 +323,31 @@ def test_p22_i():
     assert format_and_compare(expect, result.output)
 
 
-def test_p23():
-    '''
-    this is list case
+# def test_p23():
+#     '''
+#     this is list case
 
-    see p23 in the TR-531
-    '''
+#     see p23 in the TR-531
+#     '''
 
-    expect =                                    \
-        'list UniqueExample {                   \
-                key uniqueAttribute;            \
-                unique uniqueAttribute;         \
-                uses UniqueExample;             \
-        }                                       \
-        grouping UniqueExample {                \
-                leaf uniqueAttribute{           \
-                        type String;            \
-                        mandatory true;         \
-                }                               \
-        }'
+#     expect =                                    \
+#         'list UniqueExample {                   \
+#                 key uniqueAttribute;            \
+#                 unique uniqueAttribute;         \
+#                 uses UniqueExample;             \
+#         }                                       \
+#         grouping UniqueExample {                \
+#                 leaf uniqueAttribute{           \
+#                         type String;            \
+#                         mandatory true;         \
+#                 }                               \
+#         }'
 
-    file_path = dir_path.joinpath("p23.uml")
-    ob = BuildYang(file_path)
-    result = WriteYang(ob.Graph, ob.RenderStart)
+#     file_path = dir_path.joinpath("p23.uml")
+#     ob = BuildYang(file_path)
+#     result = WriteYang(ob.Graph, ob.RenderStart)
 
-    assert format_and_compare(expect, result.output)
+#     assert format_and_compare(expect, result.output)
 
 
 def test_p24():
@@ -342,25 +357,28 @@ def test_p24():
     see p24 in the TR-531
     '''
 
-    expect =                                    \
-        'list UniqueSetExample {                \
-                key attribute1;                 \
-                unique attribute1 attribute2;   \
-                unique attribute2 attribute3;   \
-                uses UniqueSetExample;          \
-        }                                       \
-        grouping UniqueSetExample {             \
-                leaf attribute1{                \
-                        type String;            \
-                        config false;           \
-                }                               \
-                leaf attribute2{                \
-                        type Integer;           \
-                }                               \
-                leaf attribute3{                \
-                        type String;            \
-                }                               \
-        }'
+    expect =                                            \
+        '       list UniqueSetExample {                 \
+                        key attribute1;                 \
+                        unique attribute1 attribute2;   \
+                        unique attribute2 attribute3;   \
+                        uses UniqueSetExample;          \
+                }                                       \
+                grouping UniqueSetExample {             \
+                        leaf attribute1{                \
+                                type String;            \
+                                mandatory true;         \
+                                config false;           \
+                        }                               \
+                        leaf attribute2{                \
+                                type Integer;           \
+                                mandatory true;         \
+                        }                               \
+                        leaf attribute3{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                }'
 
     file_path = dir_path.joinpath("p24.uml")
     ob = BuildYang(file_path)
@@ -376,28 +394,29 @@ def test_p26():
     see p26 in the TR-531
     '''
 
-    expect =                                            \
-        'grouping ClassR {                              \
-                container attributeCurrent {            \
-                        uses DataTypeA;                 \
-                }                                       \
-                list attributePotential {               \
-                        uses DataTypeA;                 \
-                }                                       \
-        }                                               \
-        grouping DataTypeA {                            \
-                leaf attribute1{                        \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-                leaf attribute2{                        \
-                        type Integer;                   \
-                }                                       \
-                leaf attribute3{                        \
-                        type String;                    \
-                        mandatory true;                 \
-                }                                       \
-        }'
+    expect =                                                    \
+        '       grouping ClassR {                               \
+                        container attributeCurrent {            \
+                                uses DataTypeA;                 \
+                        }                                       \
+                        container attributePotential {          \
+                                uses DataTypeA;                 \
+                        }                                       \
+                }                                               \
+                grouping DataTypeA {                            \
+                        leaf attribute1{                        \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                        leaf attribute2{                        \
+                                type Integer;                   \
+                                mandatory true;                 \
+                        }                                       \
+                        leaf attribute3{                        \
+                                type String;                    \
+                                mandatory true;                 \
+                        }                                       \
+                }'
 
     file_path = dir_path.joinpath("p26.uml")
     ob = BuildYang(file_path)

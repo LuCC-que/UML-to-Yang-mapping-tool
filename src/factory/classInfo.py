@@ -8,6 +8,7 @@ class classInfo:
         self.classId = id
         self.Associations = []
         self.content = {}
+        self.status = "raw"
         self.contain_uniqueSet = False
 
     def collectInfo(self, attribute, profiles):
@@ -23,6 +24,25 @@ class classInfo:
                 # association case
                 asso = {"to": attribute["@type"],
                         "type": attribute["@aggregation"]}
+                if "lowerValue" not in attribute and "upperValue" not in attribute:
+                    asso["mul"] = "1"
+
+                elif "lowerValue" not in attribute and "upperValue" in attribute:
+                    _, upper = self.findlu(None, attribute["upperValue"])
+                    asso["mul"] = upper
+
+                elif "lowerValue" in attribute and "upperValue" in attribute:
+
+                    lower, upper = self.findlu(
+                        attribute["lowerValue"], attribute["upperValue"])
+
+                    asso["mul"] = lower + \
+                        ".." + upper
+
+                elif "lowerValue" in attribute and "upperValue" not in attribute:
+                    lower, _ = self.findlu(attribute["lowerValue"], None)
+                    asso["mul"] = lower
+
                 self.Associations.append(asso)
             else:
 
@@ -55,42 +75,27 @@ class classInfo:
                 [1..x] => min-elements substatement = 1 
                 [0..3] => max-elements substatement = 3
                 '''
-                if "ownedComment" in attribute:
-                    if "body" in attribute["ownedComment"]:
+                if "lowerValue" not in attribute and "upperValue" not in attribute:
 
-                        # the first is multiplacity
-                        # the second is uniqueness
-                        tags = ["mul", "unique"]
-                        string = attribute["ownedComment"]["body"]
-                        values = split("[\r\n]+", string)
+                    clsAttr["mul"] = "1"
 
-                        # assign to the clsAttribute
-                        for tag, value in zip_longest(tags, values):
-                            if tag is None or value is None:
-                                break
-                            if tag == "unique":
-                                unq_cls = classInfo(
-                                    self.className, self.classId + "__")
-                                asso = {"to": self.classId,
-                                        "type": "shared"}
-                                unq_cls.Associations.append(asso)
-                                unq_cls.content["RootElement"] = "2"
+                elif "lowerValue" not in attribute and "upperValue" in attribute:
+                    _, upper = self.findlu(None, attribute["upperValue"])
+                    clsAttr["mul"] = upper
 
-                                unq_cls_key = {"name": attribute["@name"],
-                                               "id": attribute["@xmi:id"] + "_",
-                                               "type": "key",
-                                               }
+                elif "lowerValue" in attribute and "upperValue" in attribute:
 
-                                unq_cls_uni = {"name": attribute["@name"],
-                                               "id": attribute["@xmi:id"] + "_q",
-                                               "type": "unique",
-                                               }
-                                unq_cls.content["attributes"] = [
-                                    unq_cls_key, unq_cls_uni]
+                    lower, upper = self.findlu(
+                        attribute["lowerValue"], attribute["upperValue"])
 
-                                additional_classes.append(unq_cls)
-                                continue
-                            clsAttr[tag] = value
+                    clsAttr["mul"] = lower + \
+                        ".." + upper
+
+                elif "lowerValue" in attribute and "upperValue" not in attribute:
+                    lower, _ = self.findlu(attribute["lowerValue"], None)
+                    clsAttr["mul"] = lower
+
+                # RMOVED
 
                 if "attributes" in self.content:
                     self.content["attributes"].append(clsAttr)
@@ -198,3 +203,58 @@ class classInfo:
             unq_cls.content["attributes"].append(unq_cls_uni)
 
         return unq_cls
+
+    def findlu(self, lowerDict, upperDict):
+
+        lower = None
+        upper = None
+
+        if lowerDict != None:
+            if len(lowerDict) < 3:
+                lower = "0"
+
+            else:
+                lower = lowerDict["@value"]
+
+        if upperDict != None:
+            upper = upperDict["@value"]
+
+        return lower, upper
+
+
+# if "ownedComment" in attribute:
+        #     if "body" in attribute["ownedComment"]:
+
+        #         # the first is multiplacity
+        #         # the second is uniqueness
+        #         tags = ["mul", "unique"]
+        #         string = attribute["ownedComment"]["body"]
+        #         values = split("[\r\n]+", string)
+
+        #         # assign to the clsAttribute
+        #         for tag, value in zip_longest(tags, values):
+        #             if tag is None or value is None:
+        #                 break
+        #             if tag == "unique":
+        #                 unq_cls = classInfo(
+        #                     self.className, self.classId + "__")
+        #                 asso = {"to": self.classId,
+        #                         "type": "shared"}
+        #                 unq_cls.Associations.append(asso)
+        #                 unq_cls.content["RootElement"] = "2"
+
+        #                 unq_cls_key = {"name": attribute["@name"],
+        #                                "id": attribute["@xmi:id"] + "_",
+        #                                "type": "key",
+        #                                }
+
+        #                 unq_cls_uni = {"name": attribute["@name"],
+        #                                "id": attribute["@xmi:id"] + "_q",
+        #                                "type": "unique",
+        #                                }
+        #                 unq_cls.content["attributes"] = [
+        #                     unq_cls_key, unq_cls_uni]
+
+        #                 additional_classes.append(unq_cls)
+        #                 continue
+        #             clsAttr[tag] = value

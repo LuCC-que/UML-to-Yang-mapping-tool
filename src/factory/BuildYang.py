@@ -1,5 +1,6 @@
 import xmltodict
 from .classInfo import classInfo
+from random import uniform
 
 
 class BuildYang:
@@ -117,6 +118,7 @@ class BuildYang:
 
         print("done")
 
+        self.classPostProcessing()
         self.findEntry()
 
     def findEntry(self):
@@ -142,6 +144,27 @@ class BuildYang:
 
         # self.RenderStart = self.Graph[entryIdx].classId
         print("done")
+
+    def classPostProcessing(self):
+        # a general post processing of
+        # a class
+        for node in self.Graph:
+            if len(node.Associations) < 1:
+                continue
+
+            asso_index = 0
+            for asso in node.Associations:
+
+                for to_node in self.Graph:
+                    if to_node.classId == asso["to"]:
+                        if to_node.status == "raw":
+
+                            _, new_asso = self.assoHandler(
+                                to_node, asso)
+
+                            if new_asso != None:
+                                node.Associations[asso_index] = new_asso
+            asso_index += 1
 
     def indAttriHandler(self, indAttri):
 
@@ -213,3 +236,37 @@ class BuildYang:
                             break
 
         return is_find
+
+    def assoHandler(self, node, asso):
+        if len(asso) < 3:
+            return None, None
+
+        new_node = None
+        rootMul = None
+        new_asso = None
+        if asso["mul"] == "*" or asso["mul"] == "0..*":
+            # list
+            rootMul = "2"
+        elif asso["mul"] == "1":
+            # container
+            rootMul = "1"
+        else:
+            # grouping
+            rootMul = "0"
+
+        if node.status == "raw":
+            node.content["RootElement"] = rootMul
+            node.status == "processed"
+
+        else:
+            new_node = node.copy()
+            new_node.classId += asso["mul"] + "_" + uniform(0.0, 100.0)
+            new_node["RootElement"] = rootMul
+            new_node.status == "processed"
+
+            self.Graph.append(new_node)
+            self.Record[new_node.classId] = len(self.Record)
+
+            new_asso = {"to": new_node.classId, "type": asso["type"]}
+        print(node.className, asso["mul"])
+        return new_node, new_asso
