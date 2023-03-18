@@ -5,10 +5,7 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Class" xmi:id="_erJRkJAwEe2oTbOa2Pkbhg" name="Class4">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_hF3nkJAwEe2oTbOa2Pkbhg" name="class5" type="_ff7kgJAwEe2oTbOa2Pkbhg" aggregation="composite" association="_hFz9MJAwEe2oTbOa2Pkbhg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xa5HcLg6Ee261rEsy3ZTww"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hF41sZAwEe2oTbOa2Pkbhg" value="*"/>
-      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_hF3nkJAwEe2oTbOa2Pkbhg" name="class5" type="_ff7kgJAwEe2oTbOa2Pkbhg" aggregation="composite" association="_hFz9MJAwEe2oTbOa2Pkbhg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="__M6TopAwEe2oTbOa2Pkbhg" name="class7" type="_-GL8IJAwEe2oTbOa2Pkbhg" aggregation="composite" association="__M5skJAwEe2oTbOa2Pkbhg">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__M66sZAwEe2oTbOa2Pkbhg"/>
       </ownedAttribute>
@@ -28,10 +25,7 @@
       <ownedEnd xmi:type="uml:Property" xmi:id="_hF41spAwEe2oTbOa2Pkbhg" name="class4" type="_erJRkJAwEe2oTbOa2Pkbhg" association="_hFz9MJAwEe2oTbOa2Pkbhg"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_-GL8IJAwEe2oTbOa2Pkbhg" name="Class7">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_EgYYYpAxEe2oTbOa2Pkbhg" name="class5" type="_ff7kgJAwEe2oTbOa2Pkbhg" aggregation="shared" association="_EgXxUJAxEe2oTbOa2Pkbhg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EgaNkZAxEe2oTbOa2Pkbhg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EgaNkpAxEe2oTbOa2Pkbhg" value="*"/>
-      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_EgYYYpAxEe2oTbOa2Pkbhg" name="class5" type="_ff7kgJAwEe2oTbOa2Pkbhg" aggregation="shared" association="_EgXxUJAxEe2oTbOa2Pkbhg"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_9DfzIJG8Ee2-zIrwFHMFNQ" name="value">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>

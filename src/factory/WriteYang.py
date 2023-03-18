@@ -29,7 +29,13 @@ class WriteYang:
         self.output += "\t" * (level - 1)
         cls = self.renderMap[root]
 
-        if "RootElement" not in cls.content:
+        if cls.status == "choice-constraint":
+            self.output += "choice"
+
+        elif cls.status == "case":
+            self.output += "case"
+
+        elif "RootElement" not in cls.content:
             self.output += "grouping"
         elif cls.content["RootElement"] == "1":
 

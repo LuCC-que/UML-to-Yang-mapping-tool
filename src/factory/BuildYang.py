@@ -12,13 +12,9 @@ class BuildYang:
         self.Record = {}
         self.ClassInfo = None
         self.ProfileInfo = None
-
         self.RenderStart = []
-
         self.indAttriRepo = []
-
         self.DataTypeRepo = []
-
         self.constraint = []
 
         self.toXmlMode(path)
@@ -169,6 +165,8 @@ class BuildYang:
 
                 for to_node in self.Graph:
                     if to_node.classId == asso["to"]:
+
+                        # raw prevent the new node to be re-processed
                         if to_node.status == "raw":
 
                             _, new_asso = self.assoHandler(
@@ -306,7 +304,8 @@ class BuildYang:
                                 if asso_node.classId == toNode_asso["to"]:
                                     AssoList[asso_node.classId] = asso_node
         choicesNode = classInfo(
-            constraint["@name"], "choices_" + str(uniform(0.0, 100.0)))
+            constraint["@name"],
+            "choices_" + str(uniform(0.0, 100.0)))
         choicesNode.status = "choice-constraint"
 
         AssotoRemove = []
@@ -320,6 +319,7 @@ class BuildYang:
                     "case_"
                     + str(case_index)
                     + str(uniform(0.0, 100.0)))
+                caseNode.status = "case"
 
                 newNode = copy.deepcopy(AssoList[asso["to"]])
 
@@ -328,6 +328,10 @@ class BuildYang:
 
                 caseAsso = {"to": asso["to"], "type": "shared"}
                 newNode.Associations.append(caseAsso)
+
+                caseToNewAsso = {"to": newNode.classId,
+                                 "type": "composed"}
+                caseNode.Associations.append(caseToNewAsso)
 
                 choicesAsso = {"to": caseNode.classId,
                                "type": "composed"}
@@ -347,5 +351,9 @@ class BuildYang:
 
         for assoidx in AssotoRemove:
             rootNode.Associations.pop(assoidx)
+
+        rootToChoicesAsso = {"to": choicesNode.classId,
+                             "type": "composed"}
+        rootNode.Associations.append(rootToChoicesAsso)
 
         return

@@ -184,20 +184,20 @@ def test_additonal_root():
     '''
 
     expect =                                                            \
-        'container Root {                                               \
-            presence "Presence indicates data-store is enabled";    \
-            uses RootClass;                                         \
-        }                                                           \
-        grouping RootClass {                                        \
-                leaf attribute1{                                    \
-                        type Integer;                               \
-                        mandatory true;                             \
-                }                                                   \
-                leaf attribute2{                                    \
-                        type String;                                \
-                        mandatory true;                             \
-                }                                                   \
-        }'
+        '       container Root {                                               \
+                   presence "Presence indicates data-store is enabled";    \
+                   uses RootClass;                                         \
+                }                                                           \
+                grouping RootClass {                                        \
+                        leaf attribute1{                                    \
+                                type Integer;                               \
+                                mandatory true;                             \
+                        }                                                   \
+                        leaf attribute2{                                    \
+                                type String;                                \
+                                mandatory true;                             \
+                        }                                                   \
+                }'
 
     file_path = dir_path.joinpath("p16.uml")
     ob = BuildYang(file_path)
@@ -214,20 +214,20 @@ def test_additonal_root2():
     '''
 
     expect =    \
-        'list Root {                            \
-            presence "this is list";            \
-            uses RootClass;                     \
-        }                                       \
-        grouping RootClass {                    \
-                leaf attribute1{                \
-                        type Integer;           \
-                        mandatory true;         \
-                }                               \
-                leaf attribute2{                \
-                        type String;            \
-                        mandatory true;         \
-                }                               \
-        }'
+        '       list Root {                            \
+                   presence "this is list";            \
+                   uses RootClass;                     \
+                }                                       \
+                grouping RootClass {                    \
+                        leaf attribute1{                \
+                                type Integer;           \
+                                mandatory true;         \
+                        }                               \
+                        leaf attribute2{                \
+                                type String;            \
+                                mandatory true;         \
+                        }                               \
+                }'
 
     file_path = dir_path.joinpath("p17a.uml")
     ob = BuildYang(file_path)
